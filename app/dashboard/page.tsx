@@ -21,7 +21,10 @@ export default async function DashboardRoute() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 
-  const data = await getData(user?.id);
+  if (!user) {
+    return <div>Error: User not found</div>;
+  }
+  const data = await getData(user.id);
 
   return (
     <div>
